@@ -49,7 +49,9 @@
         <br/><p>Slot 3: </p>
         <dava:forEach items="${requestScope.slot3}" var="aLesson">
             <%--print a lesson--%>
-            <p>   ${aLesson}</p>
+            <%--CHANGE LESSON TO A LINK TO SERVLET that is responsible for do attendance--%>
+            <p><a href ="attendanceForALesson?id=${aLesson.id}&group=${aLesson.group}&course=${aLesson.course}&instructor=${aLesson.instructor}
+                  &slot=${aLesson.slot}&room=${aLesson.room}&date=${aLesson.date}" target="_blank">   ${aLesson}</a></p>
         </dava:forEach>
             
         <br/><p>Slot 7: </p>

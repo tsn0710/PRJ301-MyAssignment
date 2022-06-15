@@ -22,10 +22,11 @@ public class LessonDBContext extends DBContext<Lesson>{
     public ArrayList<Lesson> list() {
         try {
             ArrayList<Lesson> ds = new ArrayList<>();
-            PreparedStatement sql = connection.prepareStatement("select *\n" +"from all");
+            PreparedStatement sql = connection.prepareStatement("select * from [all]");
             ResultSet rs = sql.executeQuery();
             while(rs.next()){
                 Lesson a = new Lesson();
+                a.setId(rs.getInt("id"));
                 a.setSlot(rs.getInt("slot"));
                 a.setDate(rs.getDate("date"));
                 a.setGroup(rs.getString("group"));
@@ -52,6 +53,7 @@ public class LessonDBContext extends DBContext<Lesson>{
             while(rs.next()){
                 Lesson a = new Lesson();
                 a.setSlot(slot);
+                a.setId(rs.getInt("id"));
                 a.setDate(rs.getDate("date"));
                 a.setGroup(rs.getString("group"));
                 a.setCourse(rs.getString("course"));

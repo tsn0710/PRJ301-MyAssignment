@@ -4,9 +4,17 @@
         <servlet-name>timetable</servlet-name>
         <servlet-class>controler.timetable</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>attendanceForALesson</servlet-name>
+        <servlet-class>controler.attendanceForALesson</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>timetable</servlet-name>
         <url-pattern>/timetable</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>attendanceForALesson</servlet-name>
+        <url-pattern>/attendanceForALesson</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

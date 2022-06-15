@@ -11,12 +11,21 @@ import java.sql.Date;
  * @author Tong Nhat
  */
 public class Lesson {
+    int id;
     String group;
     String course;
     String instructor;
     int slot;
     String room;
     Date date;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public Lesson() {
     }
