@@ -7,7 +7,15 @@ GO
 
 SET QUOTED_IDENTIFIER ON
 GO
-DROP TABLE [dbo].[all]
+--DROP TABLE [dbo].[all]
+--drop table [dbo].[Group]
+--drop table [dbo].[Week]
+--drop table [dbo].[Student]
+create table [Week](
+	[no] [int] not null primary key,
+	[dfrom] [date] not null,
+	[dto] [date] not null
+)
 CREATE TABLE [dbo].[all](
 	[id] [nvarchar](50) NOT NULL,
 	[group] [nvarchar](50) NOT NULL,
@@ -16,14 +24,15 @@ CREATE TABLE [dbo].[all](
 	[slot] [int] NOT NULL,
 	[room] [nvarchar](50) NOT NULL,
 	[date] [date] NOT NULL,
+	[numberOfWeek] [int] not null,
 	FOREIGN KEY ([group]) REFERENCES [Group] ([Group]),
+	FOREIGN KEY ([numberOfWeek]) REFERENCES [Week] ([no]),
  CONSTRAINT [PK_all] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-DROP TABLE [dbo].[Group]
 CREATE TABLE [Group](
 	[group] [nvarchar](50) NOT NULL primary key
 	
@@ -44,6 +53,7 @@ CREATE TABLE [Group](
            ,<room, nvarchar(50),>
            ,<date, date,>)
 GO*/
+
 INSERT INTO [dbo].[all]
            ([id]
            ,[group]
@@ -51,7 +61,8 @@ INSERT INTO [dbo].[all]
            ,[instructor]
            ,[slot]
            ,[room]
-           ,[date])
+           ,[date]
+		   ,[numberOfWeek])
      VALUES
            (1
            ,'se1634'
@@ -59,7 +70,7 @@ INSERT INTO [dbo].[all]
            ,'TrungDT'
            ,1
            ,'DE-C205'
-           ,'2002-06-13')
+           ,'2002-06-13',2)
 GO
 INSERT INTO [dbo].[all]
            ([id]
@@ -68,7 +79,8 @@ INSERT INTO [dbo].[all]
            ,[instructor]
            ,[slot]
            ,[room]
-           ,[date])
+           ,[date]
+		   ,[numberOfWeek])
      VALUES
            (2
            ,'se1634'
@@ -76,7 +88,7 @@ INSERT INTO [dbo].[all]
            ,'AnhNH88'
            ,3
            ,'DE-C206'
-           ,'2022-06-13'),
+           ,'2022-06-13',2),
 
 		   (3
            ,'se1634'
@@ -84,7 +96,7 @@ INSERT INTO [dbo].[all]
            ,'AnhNH88'
            ,3
            ,'DE-C206'
-           ,'2022-06-17')
+           ,'2022-06-17',2)
 GO
 
 INSERT INTO [dbo].[all]
@@ -94,7 +106,8 @@ INSERT INTO [dbo].[all]
            ,[instructor]
            ,[slot]
            ,[room]
-           ,[date])
+           ,[date]
+		   ,[numberOfWeek])
      VALUES
            (4
            ,'se1635'
@@ -102,7 +115,7 @@ INSERT INTO [dbo].[all]
            ,'SonNT5'
            ,3
            ,'DE-C205'
-           ,'2022-06-14'),
+           ,'2022-06-14',3),
 
 		   (5
            ,'se1634'
@@ -110,7 +123,7 @@ INSERT INTO [dbo].[all]
            ,'SonNT5'
            ,4
            ,'DE-C205'
-           ,'2022-06-14')
+           ,'2022-06-14',2)
 GO
 
 INSERT INTO [dbo].[Group]
@@ -118,7 +131,6 @@ INSERT INTO [dbo].[Group]
      VALUES
            ('se1634'),('se1635')
 GO
-Drop TABLE [dbo].[Student]
 CREATE TABLE [dbo].[Student](
 	[id] [nvarchar](50) NOT NULL,
 	[group] [nvarchar](50) NOT NULL,
@@ -159,3 +171,5 @@ INSERT INTO [dbo].[Student]
            ,'se1635'
            ,'lop 1635')
 GO
+
+

@@ -8,6 +8,10 @@
         <servlet-name>attendanceForALesson</servlet-name>
         <servlet-class>controler.attendanceForALesson</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>start</servlet-name>
+        <servlet-class>controler.start</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>timetable</servlet-name>
         <url-pattern>/timetable</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>attendanceForALesson</servlet-name>
         <url-pattern>/attendanceForALesson</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>start</servlet-name>
+        <url-pattern>/start</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
