@@ -5,6 +5,7 @@
 package model;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  *
@@ -14,6 +15,17 @@ public class Week {
     int no;
     Date dfrom;
     Date dto;
+
+    @Override
+    public String toString() {
+        String result = "";
+        LocalDate df = dfrom.toLocalDate();
+        LocalDate dt = dto.toLocalDate();
+        result+=df.getDayOfMonth()+"/"+df.getMonthValue();
+        result+=" to ";
+        result+=dt.getDayOfMonth()+"/"+dt.getMonthValue();
+        return result;
+    }
 
     public int getNo() {
         return no;

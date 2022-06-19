@@ -5,6 +5,7 @@
 package controler;
 
 import dal.LessonDBContext;
+import dal.WeekDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,6 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import model.Lesson;
+import model.Week;
 
 /**
  *
@@ -47,12 +49,16 @@ public class timetable extends HttpServlet {
             throws ServletException, IOException {
         //input: no
         //output: campusList
+        //        weekList
         //to weeklyTimetable.jsp
         ArrayList<String> campusList = new ArrayList<>();
         campusList.add("FU-HL");
         campusList.add("FU-Hồ Chí Minh");
         campusList.add("FU-Đà Nẵng");
         request.setAttribute("campusList", campusList);
+        WeekDBContext wDBC = new WeekDBContext();
+        ArrayList<Week> weekList = wDBC.list();
+        request.setAttribute("weekList", weekList);
         request.getRequestDispatcher("view/weeklyTimetable.jsp").forward(request, response);
     }
 
@@ -69,11 +75,14 @@ public class timetable extends HttpServlet {
             throws ServletException, IOException {
         //input:campus(String),
         //      lecture(String)
+        //      numberOfWeek(int)
         //output:8 ArrayList: slot 1 to slot 8. Each slot contain Lesson in 7 day: Mon to Sun
+        //       weekList(arrayList)
 //       Date: now 
         String campus = request.getParameter("campus");
         String lecture = request.getParameter("lecture");
-//validate campus and lecture
+        int numberOfWeek = Integer.parseInt(request.getParameter("numberOfWeek"));
+//validate 
 
         //output
         String slot = "";
@@ -82,7 +91,7 @@ public class timetable extends HttpServlet {
             ArrayList<Lesson> lessons = new ArrayList<>();
             LessonDBContext ldbc = new LessonDBContext();
             //List of Lesson in slot i
-            lessons = ldbc.list(i);
+            lessons = ldbc.list(i,numberOfWeek);
             if(lessons==null || lessons.size()==0){
                 continue;
             }
@@ -94,6 +103,9 @@ public class timetable extends HttpServlet {
         campusList.add("FU-Hồ Chí Minh");
         campusList.add("FU-Đà Nẵng");
         request.setAttribute("campusList", campusList);
+        WeekDBContext wDBC = new WeekDBContext();
+        ArrayList<Week> weekList = wDBC.list();
+        request.setAttribute("weekList", weekList);
         request.getRequestDispatcher("view/weeklyTimetable.jsp").forward(request, response);
     }
 

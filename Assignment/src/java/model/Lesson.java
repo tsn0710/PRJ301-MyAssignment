@@ -18,7 +18,15 @@ public class Lesson {
     int slot;
     String room;
     Date date;
+    int numberOfWeek;
 
+    public int getNumberOfWeek() {
+        return numberOfWeek;
+    }
+
+    public void setNumberOfWeek(int numberOfWeek) {
+        this.numberOfWeek = numberOfWeek;
+    }
     public int getId() {
         return id;
     }

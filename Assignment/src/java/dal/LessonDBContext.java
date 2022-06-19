@@ -42,13 +42,14 @@ public class LessonDBContext extends DBContext<Lesson>{
         return null;
     }
 
-    @Override
-    public ArrayList<Lesson> list(int did) {
+    
+    public ArrayList<Lesson> list(int did,int numberOfWeek) {
         int slot = did;
         try {
             ArrayList<Lesson> ds = new ArrayList<>();
-            PreparedStatement sql = connection.prepareStatement("select *\n" +"from [all] where slot = ?");
+            PreparedStatement sql = connection.prepareStatement("select *\n" +"from [all] where slot = ? and numberOfWeek= ?");
             sql.setInt(1, slot);
+            sql.setInt(2, numberOfWeek);
             ResultSet rs = sql.executeQuery();
             while(rs.next()){
                 Lesson a = new Lesson();
@@ -59,6 +60,7 @@ public class LessonDBContext extends DBContext<Lesson>{
                 a.setCourse(rs.getString("course"));
                 a.setInstructor(rs.getString("instructor"));
                 a.setRoom(rs.getString("room"));
+                a.setNumberOfWeek(numberOfWeek);
                 ds.add(a);
             }
             return ds;
@@ -85,6 +87,11 @@ public class LessonDBContext extends DBContext<Lesson>{
 
     @Override
     public boolean delete(Lesson model) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public ArrayList<Lesson> list(int did) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

@@ -27,6 +27,18 @@
                             >${aCampus}</option>
                 </dava:forEach>
             </select><br/>
+            <%-- choose week. (like choose campus)--%> 
+            Week: <select name="numberOfWeek">
+                <dava:forEach items="${requestScope.weekList}" var="aWeek">
+                    <option value="${aWeek.no}"
+                            <%-- set initial value --%>
+                            <dava:if test = "${aWeek.getNo() == param.numberOfWeek}">
+                                selected
+                            </dava:if>
+
+                            >${aWeek.toString()}</option>
+                </dava:forEach>
+            </select><br/>
             Lecturer: <input type="text" name ="lecture" value="${param.lecture}"/>
             <input type="submit" value="View"/>
         </form>
