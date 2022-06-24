@@ -22,7 +22,7 @@ public class LessonDBContext extends DBContext<Lesson>{
     public ArrayList<Lesson> list() {
         try {
             ArrayList<Lesson> ds = new ArrayList<>();
-            PreparedStatement sql = connection.prepareStatement("select * from [all]");
+            PreparedStatement sql = connection.prepareStatement("select * from [Lesson]");
             ResultSet rs = sql.executeQuery();
             while(rs.next()){
                 Lesson a = new Lesson();
@@ -47,7 +47,7 @@ public class LessonDBContext extends DBContext<Lesson>{
         int slot = did;
         try {
             ArrayList<Lesson> ds = new ArrayList<>();
-            PreparedStatement sql = connection.prepareStatement("select *\n" +"from [all] where slot = ? and numberOfWeek= ?");
+            PreparedStatement sql = connection.prepareStatement("select *\n" +"from [Lesson] where slot = ? and numberOfWeek= ?");
             sql.setInt(1, slot);
             sql.setInt(2, numberOfWeek);
             ResultSet rs = sql.executeQuery();

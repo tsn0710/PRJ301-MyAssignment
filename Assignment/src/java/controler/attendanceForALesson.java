@@ -4,6 +4,7 @@
  */
 package controler;
 
+
 import dal.StudentDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -61,6 +62,7 @@ public class attendanceForALesson extends HttpServlet {
 //        int slot = Integer.parseInt(request.getParameter("slot"));
 //        String room = request.getParameter("room");
 //        Date date = Date.valueOf(request.getParameter("date"));
+ //           response.getWriter().print(idOfLesson);
         StudentDBContext sdbc = new StudentDBContext();
         ArrayList<Student> studentList = sdbc.list(idOfLesson);
         request.setAttribute("studentList", studentList);

@@ -22,7 +22,7 @@ public class WeekDBContext extends DBContext<Week> {
 
     public void generateWeek() {
         //tao table
-        createTable();
+        //createTable();
         //1 nam co khoang 53 tuan
         int numberOfWeek = 53;
         //ngay bat dau la tu ngay 3 thang 1 nam 2022 (xem tren fap)

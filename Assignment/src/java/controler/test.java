@@ -5,19 +5,23 @@
 
 package controler;
 
-import dal.WeekDBContext;
+import dal.StudentDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import model.Student;
 
 /**
  *
  * @author Tong Nhat
  */
-public class start extends HttpServlet {
+@WebServlet(name="test", urlPatterns={"/test"})
+public class test extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -34,10 +38,10 @@ public class start extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet start</title>");  
+            out.println("<title>Servlet test</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet start at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet test at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -54,11 +58,11 @@ public class start extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        WeekDBContext wdbc = new WeekDBContext();
-        //tao table Week, them 50 week trong nam 2022
-        wdbc.generateWeek();
-        //tao table group, all,student(chua test, chua insert rows)
-        //wdbc.createTableGroup();
+        StudentDBContext a = new StudentDBContext();
+        ArrayList<Student> arr=a.list(7);
+        for(Student z: arr){
+            System.out.println(a);
+        }
     } 
 
     /** 
