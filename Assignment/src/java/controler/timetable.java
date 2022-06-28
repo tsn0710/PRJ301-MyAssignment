@@ -12,6 +12,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import model.Lesson;
 import model.Week;
@@ -59,6 +60,7 @@ public class timetable extends HttpServlet {
         WeekDBContext wDBC = new WeekDBContext();
         ArrayList<Week> weekList = wDBC.list();
         request.setAttribute("weekList", weekList);
+        request.setAttribute("numberOfWeek", 1);
         request.getRequestDispatcher("view/weeklyTimetable.jsp").forward(request, response);
     }
 
@@ -73,6 +75,14 @@ public class timetable extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        ArrayList<String> campusList = new ArrayList<>();
+        campusList.add("FU-HL");
+        campusList.add("FU-Hồ Chí Minh");
+        campusList.add("FU-Đà Nẵng");
+        request.setAttribute("campusList", campusList);
+        WeekDBContext wDBC = new WeekDBContext();
+        ArrayList<Week> weekList = wDBC.list();
+        request.setAttribute("weekList", weekList);
         //input:campus(String),
         //      lecture(String)
         //      numberOfWeek(int)
@@ -86,26 +96,24 @@ public class timetable extends HttpServlet {
 
         //output
         String slot = "";
+        LessonDBContext ldbc = new LessonDBContext();
+        ArrayList<Lesson> arrListLessons;
         for (int i = 1; i <= 8; i++) { //for each slot:
             slot = "slot" + i;
-            ArrayList<Lesson> lessons = new ArrayList<>();
-            LessonDBContext ldbc = new LessonDBContext();
             //List of Lesson in slot i
-            lessons = ldbc.list(i,numberOfWeek);
-            if(lessons==null || lessons.size()==0){
-                continue;
+            arrListLessons = ldbc.list(i,numberOfWeek);
+            
+            LocalDate thisFromDate = weekList.get(numberOfWeek-1).getDfrom().toLocalDate();
+            Lesson[] lessons = new Lesson[7];
+            for(Lesson a: arrListLessons){
+                lessons[a.getDate().toLocalDate().getDayOfMonth()-thisFromDate.getDayOfMonth()] = a;
             }
+            
+            
             request.setAttribute(slot, lessons);
 
         }
-        ArrayList<String> campusList = new ArrayList<>();
-        campusList.add("FU-HL");
-        campusList.add("FU-Hồ Chí Minh");
-        campusList.add("FU-Đà Nẵng");
-        request.setAttribute("campusList", campusList);
-        WeekDBContext wDBC = new WeekDBContext();
-        ArrayList<Week> weekList = wDBC.list();
-        request.setAttribute("weekList", weekList);
+        
         request.getRequestDispatcher("view/weeklyTimetable.jsp").forward(request, response);
     }
 

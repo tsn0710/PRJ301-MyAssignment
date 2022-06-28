@@ -13,8 +13,7 @@ import java.sql.Date;
 public class Lesson {
     int id;
     String group;
-    String course;
-    String instructor;
+    String name;
     int slot;
     String room;
     Date date;
@@ -46,20 +45,12 @@ public class Lesson {
         this.group = group;
     }
 
-    public String getCourse() {
-        return course;
+    public String getName() {
+        return name;
     }
 
-    public void setCourse(String course) {
-        this.course = course;
-    }
-
-    public String getInstructor() {
-        return instructor;
-    }
-
-    public void setInstructor(String instructor) {
-        this.instructor = instructor;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getSlot() {
@@ -88,7 +79,8 @@ public class Lesson {
 
     @Override
     public String toString() {
-        return group + "-" + course+ "at" + room + "(" + slot + ")";
+        return "Lesson{" + "id=" + id + ", group=" + group + "\n, name=" + name + ", slot=" + slot + ", room=" + room + "\n, date=" + date + ", numberOfWeek=" + numberOfWeek + '}';
     }
+
     
 }

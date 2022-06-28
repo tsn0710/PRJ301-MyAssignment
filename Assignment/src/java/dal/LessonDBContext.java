@@ -30,9 +30,11 @@ public class LessonDBContext extends DBContext<Lesson>{
                 a.setSlot(rs.getInt("slot"));
                 a.setDate(rs.getDate("date"));
                 a.setGroup(rs.getString("group"));
-                a.setCourse(rs.getString("course"));
-                a.setInstructor(rs.getString("instructor"));
+                a.setName(rs.getString("name"));
+                //a.setCourse(rs.getString("course"));
+                //a.setInstructor(rs.getString("instructor"));
                 a.setRoom(rs.getString("room"));
+                a.setNumberOfWeek(rs.getInt("numberOfWeek"));
                 ds.add(a);
             }
             return ds;
@@ -57,10 +59,11 @@ public class LessonDBContext extends DBContext<Lesson>{
                 a.setId(rs.getInt("id"));
                 a.setDate(rs.getDate("date"));
                 a.setGroup(rs.getString("group"));
-                a.setCourse(rs.getString("course"));
-                a.setInstructor(rs.getString("instructor"));
+                a.setName(rs.getString("name"));
+                //a.setCourse(rs.getString("course"));
+                //a.setInstructor(rs.getString("instructor"));
                 a.setRoom(rs.getString("room"));
-                a.setNumberOfWeek(numberOfWeek);
+                a.setNumberOfWeek(rs.getInt("numberOfWeek"));
                 ds.add(a);
             }
             return ds;

@@ -16,7 +16,7 @@ import model.Student;
  *
  * @author Tong Nhat
  */
-public class StudentDBContext extends DBContext<Student>{
+public class StudentDBContext extends DBContext<Student> {
 
     @Override
     public ArrayList<Student> list() {
@@ -28,10 +28,12 @@ public class StudentDBContext extends DBContext<Student>{
         try {
             ArrayList<Student> ds = new ArrayList<>();
             PreparedStatement sql = connection.prepareStatement("select Student.*\n"
-                    + "	from Student join GroupStudent on Student.id=GroupStudent.id\n"
-                    + "	where GroupStudent.[group] in (select [Group].[group] \n"
-                    + "	from [Group] join Lesson on [Group].[group]= Lesson.[group]\n"
-                    + "	where Lesson.id = ?)");
+                    + "	from Student join GroupStudent on Student.id=GroupStudent.StudentID\n"
+                    + "	where GroupStudent.[group] in (\n"
+                    + "			select [Group].[group] \n"
+                    + "			from [Group] join Lesson on [Group].[group]= Lesson.[group]\n"
+                    + "			where Lesson.id = ?\n"
+                    + "			)");
             sql.setInt(1, lessonID);
             ResultSet rs = sql.executeQuery();
             while (rs.next()) {
@@ -67,5 +69,5 @@ public class StudentDBContext extends DBContext<Student>{
     public boolean delete(Student model) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
 }
