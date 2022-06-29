@@ -72,6 +72,32 @@ public class LessonDBContext extends DBContext<Lesson>{
         }
         return null;
     }
+    public ArrayList<Lesson> listAllLessonInThisWeek(int numberOfWeek) {
+        try {
+            ArrayList<Lesson> ds = new ArrayList<>();
+            PreparedStatement sql = connection.prepareStatement("select *\n" +"from [Lesson] where numberOfWeek= ?");
+            
+            sql.setInt(1, numberOfWeek);
+            ResultSet rs = sql.executeQuery();
+            while(rs.next()){
+                Lesson a = new Lesson();
+                a.setId(rs.getInt("id"));
+                a.setGroup(rs.getString("group"));
+                a.setName(rs.getString("name"));
+                a.setSlot(rs.getInt("slot"));
+                a.setRoom(rs.getString("room"));
+                a.setDate(rs.getDate("date"));
+                a.setNumberOfWeek(rs.getInt("numberOfWeek"));
+                //a.setCourse(rs.getString("course"));
+                //a.setInstructor(rs.getString("instructor"));\
+                ds.add(a);
+            }
+            return ds;
+        } catch (SQLException ex) {
+            Logger.getLogger(LessonDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
     @Override
     public Lesson get(int id) {

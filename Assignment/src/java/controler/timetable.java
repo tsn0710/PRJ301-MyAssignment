@@ -75,6 +75,16 @@ public class timetable extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //2 cases howToView: "viewInThisPage" or "viewInAnotherPage" (in submit button)
+        String howToView = request.getParameter("howToView");
+        if (howToView.equals("viewInThisPage")) {
+            //continue
+        } else if (howToView.equals("viewInAnotherPage")) {
+            //create "another" request
+            request = viewInAnotherPage(request);
+            request.getRequestDispatcher("view/weeklyTimetable2.jsp").forward(request, response);
+            return;
+        }
         ArrayList<String> campusList = new ArrayList<>();
         campusList.add("FU-HL");
         campusList.add("FU-Hồ Chí Minh");
@@ -101,19 +111,18 @@ public class timetable extends HttpServlet {
         for (int i = 1; i <= 8; i++) { //for each slot:
             slot = "slot" + i;
             //List of Lesson in slot i
-            arrListLessons = ldbc.list(i,numberOfWeek);
-            
-            LocalDate thisFromDate = weekList.get(numberOfWeek-1).getDfrom().toLocalDate();
+            arrListLessons = ldbc.list(i, numberOfWeek);
+
+            LocalDate thisFromDate = weekList.get(numberOfWeek - 1).getDfrom().toLocalDate();
             Lesson[] lessons = new Lesson[7];
-            for(Lesson a: arrListLessons){
-                lessons[a.getDate().toLocalDate().getDayOfMonth()-thisFromDate.getDayOfMonth()] = a;
+            for (Lesson a : arrListLessons) {
+                lessons[a.getDate().toLocalDate().getDayOfMonth() - thisFromDate.getDayOfMonth()] = a;
             }
-            
-            
+
             request.setAttribute(slot, lessons);
 
         }
-        
+
         request.getRequestDispatcher("view/weeklyTimetable.jsp").forward(request, response);
     }
 
@@ -127,4 +136,30 @@ public class timetable extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    private HttpServletRequest viewInAnotherPage(HttpServletRequest request) {
+        ArrayList<String> campusList = new ArrayList<>();
+        campusList.add("FU-HL");
+        campusList.add("FU-Hồ Chí Minh");
+        campusList.add("FU-Đà Nẵng");
+        request.setAttribute("campusList", campusList);
+        WeekDBContext wDBC = new WeekDBContext();
+        ArrayList<Week> weekList = wDBC.list();
+        request.setAttribute("weekList", weekList);
+        //input:campus(String),
+        //      lecture(String)
+        //      numberOfWeek(int)         Ex: 2
+        //output:7 dayOfWeeks (arrayList) Ex: 10/1/2022 to 16/1/2022 (for week 2)
+        //         lessons (arrayList)   all lesson for that input
+//Date: now  
+        String campus = request.getParameter("campus");
+        String lecture = request.getParameter("lecture");
+        int numberOfWeek = Integer.parseInt(request.getParameter("numberOfWeek"));
+        //return output dayOfWeeks:
+        request.setAttribute("dayOfWeeks",wDBC.getDaysOfWeek(numberOfWeek));
+        //return output lessons
+        LessonDBContext lDBC = new LessonDBContext();
+        request.setAttribute("lessons",lDBC.listAllLessonInThisWeek(numberOfWeek));
+//validate 
+        return request;
+    }
 }

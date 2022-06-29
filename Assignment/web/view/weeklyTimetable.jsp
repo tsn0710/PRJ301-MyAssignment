@@ -47,7 +47,8 @@
                 </dava:forEach>
             </select><br/>
             Lecturer: <input type="text" name ="lecture" value="${param.lecture}"/>
-            <input type="submit" value="View"/>
+            <input type="submit" name ="howToView" value="viewInThisPage"/>
+            <input type="submit" name ="howToView" value="viewInAnotherPage"/>
         </form>
         <%--print date--%>  
 

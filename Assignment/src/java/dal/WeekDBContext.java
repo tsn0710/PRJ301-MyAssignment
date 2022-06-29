@@ -161,5 +161,30 @@ public class WeekDBContext extends DBContext<Week> {
             Logger.getLogger(LessonDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public ArrayList<Date> getDaysOfWeek(int noOfWeek){
+        //output:7 dayOfWeeks (arrayList) Ex: 10/1/2022 to 16/1/2022 (for week 2)
+        ArrayList<Date> arr = new ArrayList<>();
+        try {
+            PreparedStatement sql = connection.prepareStatement("select * from Week where no = ?");
+            sql.setInt(1, noOfWeek);
+            ResultSet rs = sql.executeQuery();
+            if(rs.next()){
+                Date dfrom = rs.getDate("dfrom");
+                //add to array from this dfrom and 6 day followed 
+                arr.add(Date.valueOf(dfrom.toLocalDate().plusDays(0)));
+                arr.add(Date.valueOf(dfrom.toLocalDate().plusDays(1)));
+                arr.add(Date.valueOf(dfrom.toLocalDate().plusDays(2)));
+                arr.add(Date.valueOf(dfrom.toLocalDate().plusDays(3)));
+                arr.add(Date.valueOf(dfrom.toLocalDate().plusDays(4)));
+                arr.add(Date.valueOf(dfrom.toLocalDate().plusDays(5)));
+                arr.add(Date.valueOf(dfrom.toLocalDate().plusDays(6)));
+            }
+            return arr;
+        } catch (SQLException ex) {
+            Logger.getLogger(LessonDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
 }

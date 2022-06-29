@@ -81,6 +81,8 @@ public class Lesson {
     public String toString() {
         return "Lesson{" + "id=" + id + ", group=" + group + "\n, name=" + name + ", slot=" + slot + ", room=" + room + "\n, date=" + date + ", numberOfWeek=" + numberOfWeek + '}';
     }
-
+    public String toString1() {
+        return group + ", " + name + ", " + room ;
+    }
     
 }
