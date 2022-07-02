@@ -5,23 +5,24 @@
 
 package controler;
 
-import dal.StudentDBContext;
+import dal.LessonDBContext;
+import dal.WeekDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.time.LocalDate;
+import static java.time.temporal.ChronoUnit.DAYS;
 import java.util.ArrayList;
-import model.Student;
+import model.Week;
 
 /**
  *
  * @author Tong Nhat
  */
-@WebServlet(name="test", urlPatterns={"/test"})
-public class test extends HttpServlet {
+public class timetable3 extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -38,10 +39,10 @@ public class test extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet test</title>");  
+            out.println("<title>Servlet timetable3</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet test at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet timetable3 at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,11 +59,34 @@ public class test extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        StudentDBContext a = new StudentDBContext();
-        ArrayList<Student> arr=a.list(7);
-        for(Student z: arr){
-            System.out.println(a);
-        }
+        ArrayList<String> campusList = new ArrayList<>();
+        campusList.add("FU-HL");
+        campusList.add("FU-Hồ Chí Minh");
+        campusList.add("FU-Đà Nẵng");
+        request.setAttribute("campusList", campusList);
+        WeekDBContext wDBC = new WeekDBContext();
+        ArrayList<Week> weekList = wDBC.list();
+        request.setAttribute("weekList", weekList);
+        //input:campus(String),
+        //      lecture(String)         
+        //      noOfWeek(int)        Ex: 2
+        //output:7 dayOfWeeks (of this week, now) Ex: 10/1/2022 to 16/1/2022 (for week 2)
+        //       numberOfWeek(int) (of this week, now)
+        //         lessons (arrayList)   all lesson of this week(now) for that input 
+//Date: now  
+        String campus = request.getParameter("campus");
+        String lecture = request.getParameter("lecture");
+        //return output numberOfWeek(int) 
+        int numberOfWeek = Integer.parseInt(request.getParameter("numberOfWeek"));
+        request.setAttribute("numberOfWeek",numberOfWeek);
+        //System.out.println(start.toString()+"------"+end.toString()+"------"+numberOfWeekNow+"------------"+(double)DAYS.between(end,start)/7);
+        //return output 7 dayOfWeeks (of this week, now):
+        request.setAttribute("dayOfWeeks",wDBC.getDaysOfWeek(numberOfWeek));
+        //return output lessons
+        LessonDBContext lDBC = new LessonDBContext();
+        request.setAttribute("lessons",lDBC.listAllLessonInThisWeekAndLecture(numberOfWeek, lecture));
+
+        request.getRequestDispatcher("view/Timetable3.jsp").forward(request, response);
     } 
 
     /** 

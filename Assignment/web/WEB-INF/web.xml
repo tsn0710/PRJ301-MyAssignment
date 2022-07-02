@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
-        <servlet-name>timetable</servlet-name>
-        <servlet-class>controler.timetable</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>attendanceForALesson</servlet-name>
         <servlet-class>controler.attendanceForALesson</servlet-class>
     </servlet>
@@ -12,10 +8,14 @@
         <servlet-name>start</servlet-name>
         <servlet-class>controler.start</servlet-class>
     </servlet>
-    <servlet-mapping>
-        <servlet-name>timetable</servlet-name>
-        <url-pattern>/timetable</url-pattern>
-    </servlet-mapping>
+    <servlet>
+        <servlet-name>timetable2</servlet-name>
+        <servlet-class>controler.timetable2</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>timetable3</servlet-name>
+        <servlet-class>controler.timetable3</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>attendanceForALesson</servlet-name>
         <url-pattern>/attendanceForALesson</url-pattern>
@@ -23,6 +23,14 @@
     <servlet-mapping>
         <servlet-name>start</servlet-name>
         <url-pattern>/start</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>timetable2</servlet-name>
+        <url-pattern>/timetable2</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>timetable3</servlet-name>
+        <url-pattern>/timetable3</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

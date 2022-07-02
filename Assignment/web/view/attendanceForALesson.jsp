@@ -17,13 +17,13 @@
         </style>
     </head>
     <body>
-        
-        <p>Attendance for ${param.course} with lecturer ${param.instructor} at slot ${param.slot} on ${param.date} in room ${param.room}</p>
-        <dava:forEach items="${requestScope.studentList}" var="aStudent">
-            <p>${aStudent}</p>
-        </dava:forEach>
-         
-        
+
+        <p>Attendance for ${param.CourseID} with lecturer ${param.InstructorName} at slot ${param.slot} on ${param.date} in room ${param.room}</p>
+        <%/**    <dava:forEach items="${requestScope.studentList}" var="aStudent">
+                    <p>${aStudent}</p>
+                </dava:forEach>
+        **/%>
+
         <table>
             <tr>
                 <th>StudentID</th>
@@ -32,20 +32,22 @@
                 <th>Status</th>
                 <th>Reason</th>
             </tr>
-            <tr>
-                <td>HE150652</td>
-                <td>se1</td>
-                <td>Tong Sy Nhat</td>
-                <td><input type="checkbox"  name="status1" value="attended"> Attended</td>
-                <td><input type="text" name ="reason" value="empty"/></td>
-            </tr>
-            <tr>
-                <td>HE150652</td>
-                <td>se1</td>
-                <td>Tong Sy </td>
-                <td><input type="radio" name="status2" value="attended" /> Attended</td>
-                <td><input type="text" name ="reason" value="empty"/></td>
-            </tr>
+            
+            <dava:forEach items="${requestScope.studentList}" var="aStudent">
+                <tr>
+                    <td>
+                        ${aStudent.getId()}
+                    </td>
+                    <td>
+                        ${param.GroupID}
+                    </td>
+                    <td>
+                        ${aStudent.getName()}
+                    </td>
+                    <td><input type="checkbox"  name="status1" value="attended"> Attended</td>
+                    <td><input type="text" name ="reason" value="empty"/></td>
+                </tr>
+            </dava:forEach>
         </table>
     </body>
 </html>

@@ -11,8 +11,9 @@ import java.sql.Date;
  * @author Tong Nhat
  */
 public class Lesson {
+
     int id;
-    String group;
+    Group group;
     String name;
     int slot;
     String room;
@@ -26,6 +27,7 @@ public class Lesson {
     public void setNumberOfWeek(int numberOfWeek) {
         this.numberOfWeek = numberOfWeek;
     }
+
     public int getId() {
         return id;
     }
@@ -37,11 +39,11 @@ public class Lesson {
     public Lesson() {
     }
 
-    public String getGroup() {
+    public Group getGroup() {
         return group;
     }
 
-    public void setGroup(String group) {
+    public void setGroup(Group group) {
         this.group = group;
     }
 
@@ -81,8 +83,9 @@ public class Lesson {
     public String toString() {
         return "Lesson{" + "id=" + id + ", group=" + group + "\n, name=" + name + ", slot=" + slot + ", room=" + room + "\n, date=" + date + ", numberOfWeek=" + numberOfWeek + '}';
     }
+
     public String toString1() {
-        return group + ", " + name + ", " + room ;
+        return group.getId() + ", " + group.getCourse().getId() + ", " + room;
     }
-    
+
 }

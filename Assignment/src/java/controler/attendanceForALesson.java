@@ -54,7 +54,7 @@ public class attendanceForALesson extends HttpServlet {
 //                + request.getParameter("slot")+"\n"
 //                + request.getParameter("room")+"\n"
 //                + request.getParameter("date"));
-        int idOfLesson = Integer.parseInt(request.getParameter("id"));
+        int idOfLesson = Integer.parseInt(request.getParameter("LessonID"));
 //just need idOfLesson to get list of Student in this Lesson so im comment all below
 //        String group = request.getParameter("group");
 //        String course = request.getParameter("course");
