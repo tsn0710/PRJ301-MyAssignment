@@ -6,6 +6,7 @@ package controler;
 
 
 import dal.StudentDBContext;
+import dal.StudentLessonDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,8 +14,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import model.Lesson;
 import model.Student;
+import model.StudentLesson;
 
 /**
  *
@@ -66,6 +70,13 @@ public class attendanceForALesson extends HttpServlet {
         StudentDBContext sdbc = new StudentDBContext();
         ArrayList<Student> studentList = sdbc.list(idOfLesson);
         request.setAttribute("studentList", studentList);
+        
+        StudentLessonDBContext slDBC = new StudentLessonDBContext();
+        ArrayList<StudentLesson> studentLessonList = slDBC.list(idOfLesson);
+        request.setAttribute("studentLessonList", studentLessonList);
+        for(StudentLesson a: studentLessonList){
+            System.out.println(a.isStatus());
+        }
         request.getRequestDispatcher("view/attendanceForALesson.jsp").forward(request, response);
     }
 
@@ -80,7 +91,31 @@ public class attendanceForALesson extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        int idOfLesson = Integer.parseInt(request.getParameter("lessonID"));
+        StudentDBContext sdbc = new StudentDBContext();
+        ArrayList<Student> studentList = sdbc.list(idOfLesson);
+        ArrayList<StudentLesson> studentLessonList = new ArrayList<>();
+        for(Student thisStudent: studentList){
+            String x=request.getParameter("status_"+thisStudent.getId());
+            if(x==null){
+                //student nay vang mat
+                StudentLesson youDone = new StudentLesson(thisStudent, new Lesson(idOfLesson), false, LocalDate.now().toString(), request.getParameter("note_"+thisStudent.getId()) );
+                studentLessonList.add(youDone);
+            }else{
+                //student nay di hoc
+                StudentLesson oke = new StudentLesson(thisStudent, new Lesson(idOfLesson), true, LocalDate.now().toString(), request.getParameter("note_"+thisStudent.getId()) );
+                studentLessonList.add(oke);
+            }
+        }
+        StudentLessonDBContext slDBC = new StudentLessonDBContext();
+        //quyet dinh nen update hay add
+        for(StudentLesson a: studentLessonList){
+            if(1==slDBC.isExistInTableStudentLesson(Integer.toString(idOfLesson), a.getStudent().getId())){
+                slDBC.update(a);
+            }else{
+                slDBC.add(a);
+            }
+        }
     }
 
     /**

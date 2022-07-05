@@ -20,6 +20,10 @@ public class Lesson {
     Date date;
     int numberOfWeek;
 
+    public Lesson(int id) {
+        this.id = id;
+    }
+
     public int getNumberOfWeek() {
         return numberOfWeek;
     }

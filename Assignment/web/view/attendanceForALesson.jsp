@@ -23,31 +23,48 @@
                     <p>${aStudent}</p>
                 </dava:forEach>
         **/%>
-
-        <table>
-            <tr>
-                <th>StudentID</th>
-                <th>Group</th>
-                <th>StudentName</th>
-                <th>Status</th>
-                <th>Reason</th>
-            </tr>
-            
-            <dava:forEach items="${requestScope.studentList}" var="aStudent">
+        <form action="attendanceForALesson" method="POST">
+            <table>
                 <tr>
-                    <td>
-                        ${aStudent.getId()}
-                    </td>
-                    <td>
-                        ${param.GroupID}
-                    </td>
-                    <td>
-                        ${aStudent.getName()}
-                    </td>
-                    <td><input type="checkbox"  name="status1" value="attended"> Attended</td>
-                    <td><input type="text" name ="reason" value="empty"/></td>
+                    <th>StudentID</th>
+                    <th>Group</th>
+                    <th>StudentName</th>
+                    <th>Status</th>
+                    <th>Reason</th>
                 </tr>
-            </dava:forEach>
-        </table>
+
+                <dava:forEach items="${requestScope.studentList}" var="aStudent">
+                    <tr>
+                        <td>
+                            ${aStudent.getId()}
+                        </td>
+                        <td>
+                            ${param.GroupID}
+                        </td>
+                        <td>
+                            ${aStudent.getName()}
+                        </td>
+                        <td><input type="checkbox"  name="status_${aStudent.getId()}" value="${aStudent.getId()}" 
+                                   <dava:forEach items="${requestScope.studentLessonList}" var = "aStudentLesson">
+                                       <dava:if test="${aStudentLesson.getStudent().getId().equals(aStudent.getId()) and aStudentLesson.isStatus()==true}">
+                                           Checked
+                                       </dava:if>
+                                   </dava:forEach>
+                                   >Attended
+                        </td>
+                        <td><input type="text" name ="note_${aStudent.getId()}" 
+                                   <dava:forEach items="${requestScope.studentLessonList}" var = "aStudentLesson">
+                                       <dava:if test="${aStudentLesson.getStudent().getId().equals(aStudent.getId())}">
+                                           value="${aStudentLesson.getNote()}"
+                                       </dava:if>
+                                   </dava:forEach>
+                                   />
+                        </td>
+                    </tr>
+                </dava:forEach>
+                     <input type="hidden" name="lessonID" value="${param.LessonID}">
+            </table>
+            <input type="submit" value="Done">
+        </form>
     </body>
 </html>

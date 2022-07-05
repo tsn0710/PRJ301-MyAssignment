@@ -37,9 +37,7 @@ public class StudentDBContext extends DBContext<Student> {
             sql.setInt(1, lessonID);
             ResultSet rs = sql.executeQuery();
             while (rs.next()) {
-                Student a = new Student();
-                a.setId(rs.getString("id"));
-                a.setName(rs.getString("name"));
+                Student a = new Student(rs.getString("id"),rs.getString("name"));
                 ds.add(a);
             }
             System.out.println("----------------" + ds.size());
