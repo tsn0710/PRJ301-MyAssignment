@@ -72,6 +72,7 @@ CREATE TABLE [dbo].[StudentLesson](
 	[LessonID] [nvarchar](50) NOT NULL,
 	[status] [bit] NOT NULL,
 	[recordTime] [nvarchar](50) NULL,
+	[note] [nvarchar](150) NULL,
 	PRIMARY KEY ([StudentID],[LessonID]),
 	FOREIGN KEY ([LessonID]) REFERENCES [Lesson] ([id]),
 	FOREIGN KEY ([StudentID]) REFERENCES [Student] ([id])
@@ -80,16 +81,25 @@ GO
 ----------------------------------------------------------------------------------------
 --you  must execute  file Trigger.sql before insert into table Lesson 
 --you can only insert one rows at a INSERT into the table
-INSERT INTO [dbo].[Lesson] ([id] ,[group],[name] ,[slot] ,[room] ,[date] ,[numberOfWeek]) VALUES (1 ,'se1' ,'se1tiet1',1 ,'DE-C205' ,'2022-01-06',9)
-INSERT INTO [dbo].[Lesson] ([id] ,[group],[name] ,[slot] ,[room] ,[date] ,[numberOfWeek]) VALUES (2 ,'se2' ,'se2tiet1',2 ,'DE-C206' ,'2022-01-07',9)
-INSERT INTO [dbo].[Lesson] ([id] ,[group],[name] ,[slot] ,[room] ,[date] ,[numberOfWeek]) VALUES (3 ,'se3' ,'se3tiet1',3 ,'DE-C206' ,'2022-01-08',9)
-INSERT INTO [dbo].[Lesson] ([id] ,[group],[name] ,[slot] ,[room] ,[date] ,[numberOfWeek]) VALUES (4 ,'se4' ,'se4tiet1',3 ,'DE-C205' ,'2022-01-10',9)
-INSERT INTO [dbo].[Lesson] ([id] ,[group],[name] ,[slot] ,[room] ,[date] ,[numberOfWeek]) VALUES (5 ,'se1' ,'se1tiet2',4 ,'DE-C205' ,'2022-01-10',9)
-INSERT INTO [dbo].[Lesson] ([id] ,[group],[name] ,[slot] ,[room] ,[date] ,[numberOfWeek]) VALUES (6 ,'se2' ,'se2tiet2',1 ,'DE-C205' ,'2022-01-11',9)
-INSERT INTO [dbo].[Lesson] ([id] ,[group],[name] ,[slot] ,[room] ,[date] ,[numberOfWeek]) VALUES (7 ,'se3' ,'se3tiet2',3 ,'DE-C206' ,'2022-01-09',9)
-INSERT INTO [dbo].[Lesson] ([id] ,[group],[name] ,[slot] ,[room] ,[date] ,[numberOfWeek]) VALUES (8 ,'se1' ,'se1tiet3',2 ,'DE-C206' ,'2022-01-12',9)
-INSERT INTO [dbo].[Lesson] ([id] ,[group],[name] ,[slot] ,[room] ,[date] ,[numberOfWeek]) VALUES (9 ,'se2' ,'se2tiet3',1 ,'DE-C205' ,'2022-01-12',9)
-INSERT INTO [dbo].[Lesson] ([id] ,[group],[name] ,[slot] ,[room] ,[date] ,[numberOfWeek]) VALUES (10 ,'se1','se1tiet4',5 ,'DE-C298' ,'2022-01-13',9)
+INSERT INTO [dbo].[Lesson] ([id] ,[group],[name] ,[slot] ,[room] ,[date] ,[numberOfWeek]) VALUES (1 ,'se1' ,'se1tiet1',1 ,'DE-C205' ,'2022-07-01',9)
+INSERT INTO [dbo].[Lesson] ([id] ,[group],[name] ,[slot] ,[room] ,[date] ,[numberOfWeek]) VALUES (2 ,'se2' ,'se2tiet1',2 ,'DE-C206' ,'2022-07-01',9)
+INSERT INTO [dbo].[Lesson] ([id] ,[group],[name] ,[slot] ,[room] ,[date] ,[numberOfWeek]) VALUES (3 ,'se3' ,'se3tiet1',3 ,'DE-C206' ,'2022-07-01',9)
+INSERT INTO [dbo].[Lesson] ([id] ,[group],[name] ,[slot] ,[room] ,[date] ,[numberOfWeek]) VALUES (4 ,'se4' ,'se4tiet1',3 ,'DE-C205' ,'2022-07-02',9)
+INSERT INTO [dbo].[Lesson] ([id] ,[group],[name] ,[slot] ,[room] ,[date] ,[numberOfWeek]) VALUES (5 ,'se1' ,'se1tiet2',4 ,'DE-C205' ,'2022-07-02',9)
+INSERT INTO [dbo].[Lesson] ([id] ,[group],[name] ,[slot] ,[room] ,[date] ,[numberOfWeek]) VALUES (6 ,'se2' ,'se2tiet2',1 ,'DE-C205' ,'2022-07-02',9)
+INSERT INTO [dbo].[Lesson] ([id] ,[group],[name] ,[slot] ,[room] ,[date] ,[numberOfWeek]) VALUES (7 ,'se3' ,'se3tiet2',3 ,'DE-C206' ,'2022-07-03',9)
+INSERT INTO [dbo].[Lesson] ([id] ,[group],[name] ,[slot] ,[room] ,[date] ,[numberOfWeek]) VALUES (8 ,'se1' ,'se1tiet3',2 ,'DE-C206' ,'2022-07-03',9)
+INSERT INTO [dbo].[Lesson] ([id] ,[group],[name] ,[slot] ,[room] ,[date] ,[numberOfWeek]) VALUES (9 ,'se2' ,'se2tiet3',1 ,'DE-C205' ,'2022-07-04',9)
+INSERT INTO [dbo].[Lesson] ([id] ,[group],[name] ,[slot] ,[room] ,[date] ,[numberOfWeek]) VALUES (10 ,'se1','se1tiet4',1 ,'DE-C298' ,'2022-07-04',9)
+INSERT INTO [dbo].[Lesson] ([id] ,[group],[name] ,[slot] ,[room] ,[date] ,[numberOfWeek]) VALUES (11 ,'se2','se2tiet3',2 ,'DE-C298' ,'2022-07-04',9)
+INSERT INTO [dbo].[Lesson] ([id] ,[group],[name] ,[slot] ,[room] ,[date] ,[numberOfWeek]) VALUES (12 ,'se3','se3tiet3',3 ,'DE-C298' ,'2022-07-04',9)
+INSERT INTO [dbo].[Lesson] ([id] ,[group],[name] ,[slot] ,[room] ,[date] ,[numberOfWeek]) VALUES (13 ,'se4','se1tiet4',4 ,'DE-C298' ,'2022-07-05',9)
+INSERT INTO [dbo].[Lesson] ([id] ,[group],[name] ,[slot] ,[room] ,[date] ,[numberOfWeek]) VALUES (14 ,'se4','se1tiet4',5 ,'DE-C298' ,'2022-07-06',9)
+INSERT INTO [dbo].[Lesson] ([id] ,[group],[name] ,[slot] ,[room] ,[date] ,[numberOfWeek]) VALUES (15 ,'se4','se1tiet4',6 ,'DE-C298' ,'2022-07-07',9)
+INSERT INTO [dbo].[Lesson] ([id] ,[group],[name] ,[slot] ,[room] ,[date] ,[numberOfWeek]) VALUES (16 ,'se3','se3tiet4',7 ,'DE-C298' ,'2022-07-06',9)
+INSERT INTO [dbo].[Lesson] ([id] ,[group],[name] ,[slot] ,[room] ,[date] ,[numberOfWeek]) VALUES (17 ,'se2','se2tiet4',8 ,'DE-C298' ,'2022-07-06',9)
+INSERT INTO [dbo].[Lesson] ([id] ,[group],[name] ,[slot] ,[room] ,[date] ,[numberOfWeek]) VALUES (18 ,'se1','se1tiet5',2 ,'DE-C298' ,'2022-07-06',9)
+INSERT INTO [dbo].[Lesson] ([id] ,[group],[name] ,[slot] ,[room] ,[date] ,[numberOfWeek]) VALUES (19 ,'se2','se2tiet5',3 ,'DE-C298' ,'2022-07-07',9)
 
 INSERT INTO [dbo].[Group] ([group], [CourseID],[InstructorID])
      VALUES ('se1', 'PRJ', 'i1'),
@@ -128,6 +138,11 @@ INSERT INTO [dbo].[GroupStudent] ([StudentID] ,[group])
 ('he16aa' ,'se4' ),
 ('he16xx' ,'se1' )
 GO
+
+insert into [dbo].StudentLesson ([StudentID],[LessonID],[status],[recordTime],[note])
+	values ('he1506xx',17,0,null,'ko phep'),
+	('he150652',17,1,null,null)
+	go
 
 
 
