@@ -89,7 +89,7 @@ public class Lesson {
     }
 
     public String toString1() {
-        return group.getId() + ", " + group.getCourse().getId() + ", " + room;
+        return group.getId() + "<br>-" + group.getCourse().getId() + "<br>at " + room;
     }
 
 }

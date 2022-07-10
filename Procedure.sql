@@ -22,3 +22,17 @@ WHERE StudentLesson.LessonID= '17' and StudentLesson.StudentID = 'he150652'
 INSERT INTO StudentLesson (StudentLesson.LessonID, StudentLesson.StudentID, StudentLesson.status, StudentLesson.note, StudentLesson.recordTime)
 VALUES ('16', 'he16aa', 0, 'haha','gio');
 */
+--drop proc getStatus
+create proc getStatus
+@lessonID nvarchar(50)
+AS 
+BEGIN
+	select count(sl.StudentID) as dem from StudentLesson sl where sl.LessonID=@lessonID 
+END
+
+/*
+execute getStatus '18'
+execute getStatus '10'
+execute getStatus '15'
+execute getStatus '188'
+*/

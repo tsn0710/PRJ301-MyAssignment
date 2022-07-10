@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Lesson;
 import model.Student;
 import model.StudentLesson;
 
@@ -106,6 +107,21 @@ public class StudentLessonDBContext extends DBContext<StudentLesson> {
             PreparedStatement sql = connection.prepareStatement("execute isExistInTableStudentLesson ?,?");
             sql.setString(1, lessonID);
             sql.setString(2, studentID);
+            ResultSet rs = sql.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("dem");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentLessonDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+    public int getStatus(Lesson thisLessonID) {
+         try {
+            ArrayList<StudentLesson> ds = new ArrayList<>();
+            PreparedStatement sql = connection.prepareStatement("execute getStatus ?");
+            sql.setString(1, Integer.toString(thisLessonID.getId()));
             ResultSet rs = sql.executeQuery();
             if (rs.next()) {
                 return rs.getInt("dem");

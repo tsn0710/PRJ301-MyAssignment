@@ -6,6 +6,7 @@
 package controler;
 
 import dal.LessonDBContext;
+import dal.StudentLessonDBContext;
 import dal.WeekDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,6 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
 import static java.time.temporal.ChronoUnit.DAYS;
 import java.util.ArrayList;
+import model.Lesson;
 import model.Week;
 
 /**
@@ -73,6 +75,7 @@ public class timetable3 extends HttpServlet {
         //output:7 dayOfWeeks (of this week, now) Ex: 10/1/2022 to 16/1/2022 (for week 2)
         //       numberOfWeek(int) (of this week, now)
         //         lessons (arrayList)   all lesson of this week(now) for that input 
+        //       statusList (ArrayList<String>) (dua vao lessons ben tren)
 //Date: now  
         String campus = request.getParameter("campus");
         String lecture = request.getParameter("lecture");
@@ -84,8 +87,17 @@ public class timetable3 extends HttpServlet {
         request.setAttribute("dayOfWeeks",wDBC.getDaysOfWeek(numberOfWeek));
         //return output lessons
         LessonDBContext lDBC = new LessonDBContext();
-        request.setAttribute("lessons",lDBC.listAllLessonInThisWeekAndLecture(numberOfWeek, lecture));
-
+        ArrayList<Lesson> lessons = lDBC.listAllLessonInThisWeekAndLecture(numberOfWeek, lecture);
+        request.setAttribute("lessons", lessons);
+        //return output statusList
+        ArrayList<String> statusList = new ArrayList<>();
+        StudentLessonDBContext slDBC = new StudentLessonDBContext();
+        for(Lesson a: lessons){
+            int status = slDBC.getStatus(a);
+            if(status ==0){continue;}
+            if(status >0){statusList.add(a.getId()+"_"+slDBC.getStatus(a));}
+        }
+        request.setAttribute("statuses", statusList);
         request.getRequestDispatcher("view/Timetable3.jsp").forward(request, response);
     } 
 

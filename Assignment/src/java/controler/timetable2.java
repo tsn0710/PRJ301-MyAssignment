@@ -5,6 +5,7 @@
 package controler;
 
 import dal.LessonDBContext;
+import dal.StudentLessonDBContext;
 import dal.WeekDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -54,7 +55,7 @@ public class timetable2 extends HttpServlet {
         //input: no
         //output: campusList
         //        weekList
-        //to weeklyTimetable.jsp
+        //to Timetable3.jsp
         ArrayList<String> campusList = new ArrayList<>();
         campusList.add("FU-HL");
         //campusList.add("FU-Hồ Chí Minh");
@@ -102,6 +103,7 @@ public class timetable2 extends HttpServlet {
         //output:7 dayOfWeeks (of this week, now)      Ex: 10/1/2022 to 16/1/2022 (for week 2)
         //       numberOfWeek(int) (of this week, now) Ex: 2
         //       lessons (arrayList)   all lesson of this week(now) for that input 
+        //       statusList (ArrayList<String>) (dua vao lessons ben tren)
         String campus = request.getParameter("campus");
         String lecture = request.getParameter("lecture");
         //return output numberOfWeek(int) (of this week, now)
@@ -113,7 +115,17 @@ public class timetable2 extends HttpServlet {
         request.setAttribute("dayOfWeeks", wDBC.getDaysOfWeek(numberOfWeekNow));
         //return output lessons
         LessonDBContext lDBC = new LessonDBContext();
-        request.setAttribute("lessons", lDBC.listAllLessonInThisWeekAndLecture(numberOfWeekNow, lecture));
+        ArrayList<Lesson> lessons = lDBC.listAllLessonInThisWeekAndLecture(numberOfWeekNow, lecture);
+        request.setAttribute("lessons", lessons);
+        //return output statusList
+        ArrayList<String> statusList = new ArrayList<>();
+        StudentLessonDBContext slDBC = new StudentLessonDBContext();
+        for(Lesson a: lessons){
+            int status = slDBC.getStatus(a);
+            if(status ==0){continue;}
+            if(status >0){statusList.add(a.getId()+"_"+slDBC.getStatus(a));}
+        }
+        request.setAttribute("statuses", statusList);
         request.getRequestDispatcher("view/Timetable3.jsp").forward(request, response);
     }
 

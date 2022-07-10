@@ -14,11 +14,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.Date;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import model.Lesson;
 import model.Student;
 import model.StudentLesson;
+import utility.Utility;
 
 /**
  *
@@ -91,7 +92,14 @@ public class attendanceForALesson extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Lesson thisLesson = new Lesson();
+        thisLesson.setDate(Date.valueOf(request.getParameter("lessonDate")));
+        thisLesson.setSlot(Integer.parseInt(request.getParameter("lessonSlot")));
         int idOfLesson = Integer.parseInt(request.getParameter("lessonID"));
+        thisLesson.setId(idOfLesson);
+        if(false == Utility.isAllowToTakeAttendance(thisLesson)){
+            return;
+        }
         StudentDBContext sdbc = new StudentDBContext();
         ArrayList<Student> studentList = sdbc.list(idOfLesson);
         ArrayList<StudentLesson> studentLessonList = new ArrayList<>();
@@ -99,11 +107,11 @@ public class attendanceForALesson extends HttpServlet {
             String x=request.getParameter("status_"+thisStudent.getId());
             if(x==null){
                 //student nay vang mat
-                StudentLesson youDone = new StudentLesson(thisStudent, new Lesson(idOfLesson), false, LocalDate.now().toString(), request.getParameter("note_"+thisStudent.getId()) );
+                StudentLesson youDone = new StudentLesson(thisStudent, new Lesson(idOfLesson), false, LocalDateTime.now().toString(), request.getParameter("note_"+thisStudent.getId()) );
                 studentLessonList.add(youDone);
             }else{
                 //student nay di hoc
-                StudentLesson oke = new StudentLesson(thisStudent, new Lesson(idOfLesson), true, LocalDate.now().toString(), request.getParameter("note_"+thisStudent.getId()) );
+                StudentLesson oke = new StudentLesson(thisStudent, new Lesson(idOfLesson), true, LocalDateTime.now().toString(), request.getParameter("note_"+thisStudent.getId()) );
                 studentLessonList.add(oke);
             }
         }
