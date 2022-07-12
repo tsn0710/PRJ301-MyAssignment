@@ -17,7 +17,11 @@ import model.Lesson;
  * @author Tong Nhat
  */
 public class Utility {
-
+    
+    //Hàm sẽ trả về mặc định "not yet". 
+    //Nếu Lesson đó có thời gian kết thúc ở quá khứ thì trả về mặc định absent 
+    //(thời gian kết thúc tính dựa theo date và slot). 
+    //Nếu Lesson đó có số lượng StudentLesson > 0 thì trả về attended. 
     public static int getStatus(Lesson thisLesson, ArrayList<String> statusList) {
         //status la so StudentLesson
         //statusList la cua nhieu Lesson nhung trong ham nay ta chi lay dung cai status can thiet
@@ -125,6 +129,11 @@ public class Utility {
         return false;
     }
     
+    //- Hàm boolean isAllowToTakeAttendance trong class Utility nhận một Lesson. 
+    //Trả về True nếu bây giờ thuộc khoảng thời gian 24 h sau khi Lesson đó bắt đầu. 
+    //(thời gian bắt đầu tính dựa theo date và slot)
+    //- Controller sẽ dùng hàm này để quyết định việc ghi điểm danh vào DB hay ko. 
+    //View cũng dùng hàm này để quyết định có cho user được chấm attend, ghi comment được hay ko.
     public static boolean isAllowToTakeAttendance(Date thisLessonDate, int thisLessonSlot){
         Lesson thisLesson = new Lesson();
         thisLesson.setDate(thisLessonDate);

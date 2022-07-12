@@ -12,13 +12,13 @@ import java.sql.Date;
  */
 public class Lesson {
 
-    int id;
-    Group group;
-    String name;
-    int slot;
-    String room;
-    Date date;
-    int numberOfWeek;
+    private int id;
+    private Group group;
+    private String name;
+    private int slot;
+    private String room;
+    private Date date;
+    private int numberOfWeek;
 
     public Lesson(int id) {
         this.id = id;

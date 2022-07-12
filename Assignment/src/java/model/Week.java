@@ -12,18 +12,19 @@ import java.time.LocalDate;
  * @author Tong Nhat
  */
 public class Week {
-    int no;
-    Date dfrom;
-    Date dto;
+
+    private int no;
+    private Date dfrom;
+    private Date dto;
 
     @Override
     public String toString() {
         String result = "";
         LocalDate df = dfrom.toLocalDate();
         LocalDate dt = dto.toLocalDate();
-        result+=df.getDayOfMonth()+"/"+df.getMonthValue();
-        result+=" to ";
-        result+=dt.getDayOfMonth()+"/"+dt.getMonthValue();
+        result += df.getDayOfMonth() + "/" + df.getMonthValue();
+        result += " to ";
+        result += dt.getDayOfMonth() + "/" + dt.getMonthValue();
         return result;
     }
 
@@ -50,6 +51,5 @@ public class Week {
     public void setDto(Date dto) {
         this.dto = dto;
     }
-    
-    
+
 }

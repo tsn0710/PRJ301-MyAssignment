@@ -10,11 +10,11 @@ package model;
  */
 public class StudentLesson {
 
-    Student student;
-    Lesson lesson;
-    boolean status;
-    String recordTime;
-    String note;
+    private Student student;
+    private Lesson lesson;
+    private boolean status;
+    private String recordTime;
+    private String note;
 
     public StudentLesson(Student student, Lesson lesson, boolean status, String recordTime, String note) {
         this.student = student;
