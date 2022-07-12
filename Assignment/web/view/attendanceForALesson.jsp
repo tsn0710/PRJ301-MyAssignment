@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="utility.Utility" %>
 <%@ page import="java.sql.Date" %>
+<%@ taglib uri='/WEB-INF/tlds/myCustomTag' prefix='myCustomTag' %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -156,7 +157,7 @@
                         <td>
                             <dava:forEach items="${requestScope.studentLessonList}" var = "aStudentLesson">
                                 <dava:if test="${aStudentLesson.getStudent().getId().equals(aStudent.getId())}">
-                                    <p>${Utility.dateTimeStringToDisplayInBrower(aStudentLesson.getRecordTime())}</p>
+                                    <myCustomTag:English_LocalDateTime_Format localDateTimeOfRecordTimeOfStudentLesson="${aStudentLesson.getRecordTime()}"/>
                                 </dava:if>
                             </dava:forEach>
                         </td>

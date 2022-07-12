@@ -72,19 +72,19 @@ public class Utility {
         }
         return "";
     }
-
-    public static String dateTimeStringToDisplayInBrower(String dateTime) {
-        LocalDateTime todayVietNam = LocalDateTime.parse(dateTime);
-        String returnString = todayVietNam.format(DateTimeFormatter.ofPattern("yyyy/MM/dd hh:mm:ss a"));
-        //2022/07/09 07:56:36 CH (19 h 56 p toi)
-        if (returnString.substring(returnString.length() - 2, returnString.length()).equals("CH")) {
-            return returnString.replace("CH", "PM");
-        }
-        if (returnString.substring(returnString.length() - 2, returnString.length()).equals("SA")) {
-            return returnString.replace("SA", "AM");
-        }
-        return returnString;
-    }
+//mot custom tag : myTag.MyEnglishLocalDateTimeFormat da ganh vac cong viec cua ham nay
+//    public static String dateTimeStringToDisplayInBrower(String dateTime) {
+//        LocalDateTime todayVietNam = LocalDateTime.parse(dateTime);
+//        String returnString = todayVietNam.format(DateTimeFormatter.ofPattern("yyyy/MM/dd hh:mm:ss a"));
+//        //2022/07/09 07:56:36 CH (19 h 56 p toi)
+//        if (returnString.substring(returnString.length() - 2, returnString.length()).equals("CH")) {
+//            return returnString.replace("CH", "PM");
+//        }
+//        if (returnString.substring(returnString.length() - 2, returnString.length()).equals("SA")) {
+//            return returnString.replace("SA", "AM");
+//        }
+//        return returnString;
+//    }
 
     public static LocalDateTime getEndTimeOfLesson(Lesson thisLesson) {
         //ham nay co lien quan den ham getStatus

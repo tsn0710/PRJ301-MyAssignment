@@ -32,6 +32,14 @@
         <servlet-name>timetable3</servlet-name>
         <url-pattern>/timetable3</url-pattern>
     </servlet-mapping>
+    <!--
+    <jsp-config>
+        <taglib>
+            <taglib-uri>https://nhatvip/jsp/tlds/mytags</taglib-uri>
+            <taglib-location>/WEB-INF/tlds/firstTagBoi.tld</taglib-location>
+        </taglib>
+    </jsp-config>
+    -->
     <session-config>
         <session-timeout>
             30
