@@ -16,6 +16,10 @@
         <servlet-name>timetable3</servlet-name>
         <servlet-class>controler.timetable3</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Login</servlet-name>
+        <servlet-class>controler.Login</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>attendanceForALesson</servlet-name>
         <url-pattern>/attendanceForALesson</url-pattern>
@@ -40,9 +44,13 @@
         </taglib>
     </jsp-config>
     -->
+    <servlet-mapping>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/loginForInstructor</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
-            30
+            5
         </session-timeout>
     </session-config>
 </web-app>

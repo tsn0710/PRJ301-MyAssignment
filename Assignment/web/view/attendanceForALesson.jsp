@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="utility.Utility" %>
 <%@ page import="java.sql.Date" %>
+<%@ page import="model.Account" %>
 <%@ taglib uri='/WEB-INF/tlds/myCustomTag' prefix='myCustomTag' %>
 <!DOCTYPE html>
 <html>
@@ -99,12 +100,14 @@
                     <p>${aStudent}</p>
                 </dava:forEach>
         **/%>
+        <dava:set var = "disableHuh" value = " "/>
         <dava:if test="${Utility.isAllowToTakeAttendance(Date.valueOf(param.date),Integer.parseInt(param.slot))==false}">
             <dava:set var = "disableHuh" value = " disabled"/>
         </dava:if>
-        <dava:if test="${Utility.isAllowToTakeAttendance(Date.valueOf(param.date),Integer.parseInt(param.slot))==true}">
-            <dava:set var = "disableHuh" value = " "/>
+        <dava:if test="${sessionScope.acc.getInstructor().getId().equals(requestScope.InstructorID)==false}">
+            <dava:set var = "disableHuh" value = " disabled"/>
         </dava:if>
+        
         <form action="attendanceForALesson" method="POST">
             <table>
                 <tr>
@@ -163,6 +166,7 @@
                         </td>
                     </tr>
                 </dava:forEach>
+                    <input type="hidden" name="InstructorID" value="${param.InstructorID}">
                 <input type="hidden" name="lessonID" value="${param.LessonID}">
                 <input type="hidden" name="lessonDate" value="${param.date}">
                 <input type="hidden" name="lessonSlot" value="${param.slot}">

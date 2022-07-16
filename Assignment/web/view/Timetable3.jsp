@@ -161,7 +161,9 @@
                     <td>
                         <dava:forEach items="${requestScope.lessons}" var="aLesson">
                             <dava:if test="${aLesson.date eq aDay and thisSlot.contains(Integer.toString(aLesson.slot))}">
-                                <a href ="attendanceForALesson?LessonID=${aLesson.id}&CourseID=${aLesson.getGroup().getCourse().getId()}&InstructorName=${aLesson.getGroup().getInstructor().getName()}&slot=${aLesson.slot}&room=${aLesson.room}&date=${aLesson.date}&GroupID=${aLesson.getGroup().getId()}" target="_blank">   ${aLesson.toString1()}</a>
+                                <a href ="attendanceForALesson?LessonID=${aLesson.id}&CourseID=${aLesson.getGroup().getCourse().getId()}&InstructorName=${aLesson.getGroup().getInstructor().getName()}&slot=${aLesson.slot}&room=${aLesson.room}&date=${aLesson.date}&GroupID=${aLesson.getGroup().getId()}&InstructorID=${aLesson.getGroup().getInstructor().getId()}" target="_blank">   ${aLesson.toString1()}</a>
+                                <><!-- ca cai href tren chi co moi LessonID la dung trong servlet thoi a, nhung cai con lai la de hien thi   -->
+                                <><!-- neu ng dung co tinh thay doi LessonID thi cung giong nhu la sang page khac, sai mot vai cai khong quan trong  -->
                                 <dava:set var = "aStatus" value = "${Utility.getStatus(aLesson,requestScope.statuses)}"/>
                                 <dava:if test="${aStatus>0}"><p style="color: green">(Attended)</p></dava:if>
                                 <dava:if test="${aStatus<0}"><p style="color: red">(Absent)<br>${Utility.getTimeSlot(thisSlot)}</p></dava:if>

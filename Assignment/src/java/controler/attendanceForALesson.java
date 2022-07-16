@@ -5,6 +5,7 @@
 package controler;
 
 
+import dal.InstructorDBContext;
 import dal.StudentDBContext;
 import dal.StudentLessonDBContext;
 import java.io.IOException;
@@ -13,9 +14,11 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import model.Account;
 import model.Lesson;
 import model.Student;
 import model.StudentLesson;
@@ -52,6 +55,12 @@ public class attendanceForALesson extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession aSession = request.getSession();
+        Account acc=(Account)aSession.getAttribute("acc");
+        if(acc==null){
+            response.getWriter().print("access denied");
+            return;
+        }
 //        response.getWriter().print(request.getParameter("id")+"\n"
 //                +request.getParameter("group")+"\n"
 //                + request.getParameter("course")+"\n"
@@ -68,6 +77,10 @@ public class attendanceForALesson extends HttpServlet {
 //        String room = request.getParameter("room");
 //        Date date = Date.valueOf(request.getParameter("date"));
  //           response.getWriter().print(idOfLesson);
+        //tra ve InstructorID nua de disable input neu user khac instructor
+        InstructorDBContext iDBC = new InstructorDBContext();
+        request.setAttribute("InstructorID", iDBC.getInstructorID(Integer.toString(idOfLesson)));
+        //
         StudentDBContext sdbc = new StudentDBContext();
         ArrayList<Student> studentList = sdbc.list(idOfLesson);
         request.setAttribute("studentList", studentList);
@@ -92,6 +105,24 @@ public class attendanceForALesson extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession aSession = request.getSession();
+        Account acc=(Account)aSession.getAttribute("acc");
+        if(acc==null){
+            response.getWriter().print("access denied");
+            return;
+        }
+        //lay instructorID tu DB
+        //khong nen lay o url vi nguoi dung co the thay doi de hack:
+        //thay doi instructorID de co quyen cham diem danh
+        InstructorDBContext iDBC = new InstructorDBContext();
+        if(acc.getInstructor().getId().equals(iDBC.getInstructorID(request.getParameter("lessonID")))){
+            //continue request.getParameter("lessonID")   iDBC.getInstructorID(request.getParameter("lessonID"))
+        }else{
+            response.getWriter().print("You can not take attendance of this Lesson because you are not Instructor of this Lesson ");
+            return;
+        }
+        
+        
         Lesson thisLesson = new Lesson();
         thisLesson.setDate(Date.valueOf(request.getParameter("lessonDate")));
         thisLesson.setSlot(Integer.parseInt(request.getParameter("lessonSlot")));

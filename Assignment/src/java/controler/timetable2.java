@@ -13,11 +13,13 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import static java.time.temporal.ChronoUnit.DAYS;
 import java.util.ArrayList;
+import model.Account;
 import model.Lesson;
 import model.Week;
 
@@ -52,6 +54,13 @@ public class timetable2 extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession aSession = request.getSession();
+        Account acc=(Account)aSession.getAttribute("acc");
+        if(acc==null){
+            response.getWriter().print("access denied");
+            return;
+        }
+        
         //input: no
         //output: campusList
         //        weekList
@@ -84,6 +93,13 @@ public class timetable2 extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession aSession = request.getSession();
+        Account acc=(Account)aSession.getAttribute("acc");
+        if(acc==null){
+            response.getWriter().print("access denied");
+            return;
+        }
+        
         String howToView = request.getParameter("howToView");
         if (howToView.equals("viewInThisPage2")) {
             return;
